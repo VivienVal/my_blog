@@ -1,0 +1,15 @@
+<div class="row" >
+	<div class="col-md-12" [ngClass]="{	'list-group-item': true,
+										'list-group-item-success': postLoveIts > 0,
+										'list-group-item-danger': postLoveIts < 0}">
+		<div class="row" style="display: flex;flex-direction: row;">
+			<div class="col-md-8"><h2>{{ postTitle }}</h2></div>
+			<div class="col-md-4" style="display: flex;align-items: center;">{{ postDate | date: 'short' }}</div>
+		</div>
+		<p>{{ postContent }}</p>
+		<button class="btn btn-success" style="margin-right: 10px;" (click)="onLoveIts()">Love It</button>
+		<button class="btn btn-danger" (click)="onDontLoveIts()">Don't Love It</button>
+		<div class="row"><div class="col-md-12">{{ postLoveIts }}</div></div>
+	</div>
+	<div class="col_md_3"></div>
+</div>
