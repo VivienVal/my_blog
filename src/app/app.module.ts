@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { PostListComponentComponent } from './post-list-component/post-list-component.component';
 
+import { PostService } from './services/post.service';
+
 @NgModule({
   declarations: [
     AppComponent,

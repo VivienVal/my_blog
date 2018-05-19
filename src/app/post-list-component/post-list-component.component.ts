@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { PostService } from '../services/post.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Post } from '../models/post.model';
 
 @Component({
   selector: 'app-post-list-component',
@@ -6,22 +9,31 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./post-list-component.component.css']
 })
 export class PostListComponentComponent implements OnInit {
-  @Input() postTitle: string;
-  @Input() postDate = new Date();
-  @Input() postLoveIts: number;
-  @Input() postContent: string;
 
-  constructor() { }
+  posts: Post[];
+  postSubscription: Subscription;
+
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
+    this.postSubscription = this.postService.postSubject.subscribe(
+      (posts: Post[]) => {
+        this.posts = posts;
+      }
+    );
+    this.postService.emitPosts();
   }
 
-  onLoveIts(){
-  	this.postLoveIts++;
+  onLoveIts(post){
+    this.postService.changeLoveIts(post, 1);
   }
 
-  onDontLoveIts(){
-  	this.postLoveIts--;
+  onDontLoveIts(post){
+  	this.postService.changeLoveIts(post, -1);
+  }
+
+  onDeletePost(post: Post){
+    this.postService.removePost(post);
   }
 
 }

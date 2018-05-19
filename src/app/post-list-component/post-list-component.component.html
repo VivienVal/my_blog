@@ -1,15 +1,27 @@
-<div class="row" >
-	<div class="col-md-12" [ngClass]="{	'list-group-item': true,
-										'list-group-item-success': postLoveIts > 0,
-										'list-group-item-danger': postLoveIts < 0}">
-		<div class="row" style="display: flex;flex-direction: row;">
-			<div class="col-md-8"><h2>{{ postTitle }}</h2></div>
-			<div class="col-md-4" style="display: flex;align-items: center;">{{ postDate | date: 'short' }}</div>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Posts</h1>
+		<div class="list-group">
+			<button class="list-group-item" 
+					*ngFor="let post of posts; let i = index" 
+					[ngClass]="{	'list-group-item': true,
+									'list-group-item-success': post.loveIts > 0,
+									'list-group-item-danger': post.loveIts < 0}">
+				<div class="col-md-12" >
+					<div class="row" style="display: flex;flex-direction: row;">
+						<div class="col-md-8"><h2>{{ post.title }}</h2></div>
+						<div class="col-md-3" style="display: flex;align-items: center;">{{ post.date | date: 'short' }}</div>
+						<div class="col-md-1" style="display: flex;align-items: center;">
+							<button class="btn btn-danger" (click)="onDeletePost(post);">X</button>
+						</div>
+					</div>
+					<p>{{ post.content }}</p>
+					<button class="btn btn-success" style="margin-right: 10px;" (click)="onLoveIts(post)">Love It</button>
+					<button class="btn btn-danger" (click)="onDontLoveIts(post)">Don't Love It</button>
+					<div class="row"><div class="col-md-12">{{ post.loveIts }}</div></div>
+				</div>
+				<div class="col_md_3"></div>
+			</button>
 		</div>
-		<p>{{ postContent }}</p>
-		<button class="btn btn-success" style="margin-right: 10px;" (click)="onLoveIts()">Love It</button>
-		<button class="btn btn-danger" (click)="onDontLoveIts()">Don't Love It</button>
-		<div class="row"><div class="col-md-12">{{ postLoveIts }}</div></div>
 	</div>
-	<div class="col_md_3"></div>
 </div>
