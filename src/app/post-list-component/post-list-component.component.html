@@ -12,12 +12,12 @@
 						<div class="col-md-8"><h2>{{ post.title }}</h2></div>
 						<div class="col-md-3" style="display: flex;align-items: center;">{{ post.date | date: 'short' }}</div>
 						<div class="col-md-1" style="display: flex;align-items: center;">
-							<button class="btn btn-danger" (click)="onDeletePost(post);">X</button>
+							<button class="btn btn-danger" (click)="onDeletePost(post, i);">X</button>
 						</div>
 					</div>
 					<p>{{ post.content }}</p>
-					<button class="btn btn-success" style="margin-right: 10px;" (click)="onLoveIts(post)">Love It</button>
-					<button class="btn btn-danger" (click)="onDontLoveIts(post)">Don't Love It</button>
+					<button class="btn btn-success" style="margin-right: 10px;" (click)="onLoveIts(post, i)">Love It</button>
+					<button class="btn btn-danger" (click)="onDontLoveIts(post, i)">Don't Love It</button>
 					<div class="row"><div class="col-md-12">{{ post.loveIts }}</div></div>
 				</div>
 				<div class="col_md_3"></div>

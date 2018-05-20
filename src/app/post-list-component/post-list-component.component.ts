@@ -24,16 +24,16 @@ export class PostListComponentComponent implements OnInit, OnDestroy {
     this.postService.emitPosts();
   }
 
-  onLoveIts(post){
-    this.postService.changeLoveIts(post, 1);
+  onLoveIts(post: Post, i: number){
+    this.postService.changeLoveIts(post, 1, i);
   }
 
-  onDontLoveIts(post){
-  	this.postService.changeLoveIts(post, -1);
+  onDontLoveIts(post: Post, i: number){
+  	this.postService.changeLoveIts(post, -1, i);
   }
 
-  onDeletePost(post: Post){
-    this.postService.removePost(post);
+  onDeletePost(post: Post, i: number){
+    this.postService.removePost(post, i);
   }
 
   ngOnDestroy(){

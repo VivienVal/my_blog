@@ -24,27 +24,14 @@ export class PostService {
   createNewPost(newPost: Post){
   	this.posts.push(newPost);
   	this.emitPosts();
-  	console.log(newPost);
   }
 
-  removePost(post: Post){
-  	const postIndexToRemove = this.myFindIndex(post);
+  removePost(post: Post, postIndexToRemove: number){
   	this.posts.splice(postIndexToRemove, 1);
   	this.emitPosts();
   }
 
-  myFindIndex(post: Post){
-  	return this.posts.findIndex(
-  		(postEl) => {
-  			if(postEl === post){
-  				return true;
-  			}
-  		}
-  	);
-  }
-
-  changeLoveIts(post: Post, nb: number){
-  	const postToLove = this.myFindIndex(post);
+  changeLoveIts(post: Post, nb: number, postToLove: number){
   	this.posts[postToLove].loveIts += nb;
   	this.emitPosts();
   }
