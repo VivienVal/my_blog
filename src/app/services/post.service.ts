@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post.model';
 import { Subject } from 'rxjs/Subject';
+import * as firebase from 'firebase';
+import DataSnapshot = firebase.database.DataSnapshot;
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +12,7 @@ export class PostService {
 
 
 	postSubject = new Subject<Post[]>();
-	posts = [
-		  new Post('Mon premier post', 'In his tractibus navigerum nusquam visitur flumen sed in locis plurimis aquae suapte natura calentes emergunt ad usus aptae multiplicium medelarum. verum has quoque regiones pari sorte Pompeius Iudaeis domitis et Hierosolymis captis in provinciae speciem delata iuris dictione formavit.'),
-		  new Post('test', 'lorem ipsum blablabla')
-	  ];
+	posts = [];
 
   constructor() { }
 
@@ -24,16 +23,31 @@ export class PostService {
   createNewPost(newPost: Post){
   	this.posts.push(newPost);
   	this.emitPosts();
+  	this.savePosts();
   }
 
   removePost(post: Post, postIndexToRemove: number){
   	this.posts.splice(postIndexToRemove, 1);
   	this.emitPosts();
+  	this.savePosts();
   }
 
   changeLoveIts(post: Post, nb: number, postToLove: number){
   	this.posts[postToLove].loveIts += nb;
   	this.emitPosts();
+  	this.savePosts();
   }
 
+  savePosts(){
+  	firebase.database().ref('/posts').set(this.posts);
+  }
+
+  getPosts(){
+  	firebase.database().ref('/posts')
+  		.on('value', (data: DataSnapshot) => {
+  			this.posts = data.val() ? data.val() : [];
+  			this.emitPosts();
+  		}
+	);
+  }
 }
