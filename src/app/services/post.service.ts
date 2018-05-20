@@ -24,6 +24,7 @@ export class PostService {
   createNewPost(newPost: Post){
   	this.posts.push(newPost);
   	this.emitPosts();
+  	console.log(newPost);
   }
 
   removePost(post: Post){

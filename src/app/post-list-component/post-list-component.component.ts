@@ -8,7 +8,7 @@ import { Post } from '../models/post.model';
   templateUrl: './post-list-component.component.html',
   styleUrls: ['./post-list-component.component.css']
 })
-export class PostListComponentComponent implements OnInit {
+export class PostListComponentComponent implements OnInit, OnDestroy {
 
   posts: Post[];
   postSubscription: Subscription;
@@ -34,6 +34,10 @@ export class PostListComponentComponent implements OnInit {
 
   onDeletePost(post: Post){
     this.postService.removePost(post);
+  }
+
+  ngOnDestroy(){
+    this.postSubscription.unsubscribe();
   }
 
 }
